@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Thông báo thành công
-    echo "Cuộc hẹn đã được đặt thành công. Mã cuộc hẹn: " . $mach;
+    include '../View/user/datlichthanhcong.php';
+    exit;
 }
 ?>

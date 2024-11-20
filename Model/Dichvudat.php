@@ -16,15 +16,12 @@ class Dichvudat {
         
         if ($count > 0) {
             // Nếu dịch vụ đã tồn tại trong cuộc hẹn, không chèn thêm
-            echo "Dịch vụ này đã được thêm vào cuộc hẹn.";
         } else {
             // Nếu dịch vụ chưa tồn tại, thêm vào bảng dichvudat
             $stmt = $db->conn->prepare("INSERT INTO dichvudat (mach, madv) VALUES (?, ?)");
             $stmt->bind_param("ii", $mach, $madv);
             $stmt->execute();
-            echo "Dịch vụ đã được thêm vào cuộc hẹn.";
         }
-    
         $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
     }
     

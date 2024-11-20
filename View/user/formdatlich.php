@@ -15,53 +15,194 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt Cuộc Hẹn</title>
+    <!-- Liên kết tới Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Bảng thời gian */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        td.disabled {
+            background-color: #f5f5f5;
+            color: #aaa;
+            cursor: not-allowed;
+        }
+
+        td.selected {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
-    <h1>Đặt Cuộc Hẹn</h1>
-    <form action="../Controller/DatCuocHenController.php" method="POST">
-        <!-- Thông tin khách hàng -->
-        <label for="tenkh">Tên Khách Hàng:</label>
-        <input type="text" id="tenkh" name="tenkh" required><br><br>
+    <div class="container">
+        <div class="form-container">
+            <form action="../Controller/DatCuocHenController.php" method="POST">
+                <h1 class="text-center mb-4">Đặt Cuộc Hẹn</h1>
 
-        <label for="sdt">Số Điện Thoại:</label>
-        <input type="text" id="sdt" name="sdt" value="<?php echo isset($_POST['sdt']) ? $_POST['sdt'] : ''; ?>" required><br><br>
+                <!-- Thông tin khách hàng -->
+                <div class="form-group">
+                    <label for="tenkh">Tên Khách Hàng:</label>
+                    <input type="text" class="form-control" id="tenkh" name="tenkh" required>
+                </div>
 
-        <label for="emailkh">Email:</label>
-        <input type="email" id="emailkh" name="emailkh" required><br><br>
+                <div class="form-group">
+                    <label for="sdt">Số Điện Thoại:</label>
+                    <input type="text" class="form-control" id="sdt" name="sdt" value="<?php echo isset($_POST['sdt']) ? $_POST['sdt'] : ''; ?>" required>
+                </div>
 
-        <!-- Chọn nhân viên -->
-        <label for="manv">Chọn Nhân Viên:</label>
-        <select name="manv" id="manv" required>
-            <?php foreach ($nhanviens as $nhanvien): ?>
-                <option value="<?= $nhanvien['manv'] ?>"><?= $nhanvien['ten'] ?></option>
-            <?php endforeach; ?>
-        </select><br><br>
+                <div class="form-group">
+                    <label for="emailkh">Email:</label>
+                    <input type="email" class="form-control" id="emailkh" name="emailkh" required>
+                </div>
 
-        <!-- Chọn dịch vụ -->
-        <label for="dichvu">Chọn Dịch Vụ:</label><br>
-        <?php foreach ($dichvus as $dichvu): ?>
-            <input type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>" data-thoiluong="<?= $dichvu['thoiluong'] ?>"> 
-            <?= $dichvu['tendv'] ?> (Thời gian: <?= $dichvu['thoiluong'] ?> phút)<br>
-        <?php endforeach; ?>
-        <br>
+                <!-- Chọn nhân viên -->
+                <div class="form-group">
+                    <label for="manv">Chọn Nhân Viên:</label>
+                    <select name="manv" id="manv" class="form-control" required>
+                        <?php foreach ($nhanviens as $nhanvien): ?>
+                            <option value="<?= $nhanvien['manv'] ?>"><?= $nhanvien['ten'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        <!-- Thời gian bắt đầu -->
-        <label for="giobd">Giờ Bắt Đầu:</label>
-        <input type="datetime-local" id="giobd" name="giobd" required><br><br>
+                <!-- Chọn dịch vụ -->
+                <div class="form-group">
+                    <label for="dichvu">Chọn Dịch Vụ:</label><br>
+                    <?php foreach ($dichvus as $dichvu): ?>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>" data-thoiluong="<?= $dichvu['thoiluong'] ?>">
+                            <label class="form-check-label">
+                                <?= $dichvu['tendv'] ?> (Thời gian: <?= $dichvu['thoiluong'] ?> phút)
+                            </label>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
 
-        <label for="giokt">Giờ Kết Thúc:</label>
-        <input type="text" id="giokt" name="giokt" readonly><br><br>
+                <!-- Chọn ngày -->
+                <div class="form-group">
+                    <label for="ngay">Chọn Ngày:</label>
+                    <input type="date" class="form-control" id="ngay" name="ngay" required>
+                </div>
 
-        <button type="submit">Đặt Cuộc Hẹn</button>
-    </form>
+                <!-- Chọn giờ -->
+                <div class="form-group">
+                    <label for="gio">Chọn Giờ:</label>
+                    <table id="timeTable" class="table table-bordered">
+                        <!-- Thời gian sẽ được tạo động -->
+                    </table>
+                </div>
+
+                <!-- Input ẩn để lưu giá trị datetime -->
+                <input type="hidden" id="giobd" name="giobd" required>
+
+                <button type="submit" class="btn btn-primary btn-block">Đặt Cuộc Hẹn</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Liên kết tới Bootstrap JS (và jQuery) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-      // Hàm tính thời gian kết thúc dựa trên dịch vụ đã chọn
-document.querySelectorAll('input[name="dichvu[]"]').forEach(function (checkbox) {
-    checkbox.addEventListener('change', function () {
-        calculateEndTime();
-    });
-});
+        // Đặt ngày tối thiểu là hôm nay
+        const hours = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", 
+                       "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", 
+                       "19:00", "20:00", "21:00"];
+
+        const ngayInput = document.getElementById('ngay');
+        const gioInput = document.getElementById('giobd');
+        const timeTable = document.getElementById('timeTable');
+
+        let selectedHour = null; // Lưu giờ được chọn
+
+        // Tạo bảng thời gian
+        function renderTimeTable() {
+            timeTable.innerHTML = ''; // Reset bảng
+            const selectedDate = new Date(ngayInput.value);
+            const now = new Date();
+            let row;
+
+            hours.forEach((hour, index) => {
+                const [h, m] = hour.split(':');
+                const isToday = selectedDate.toDateString() === now.toDateString();
+                const isPast = isToday && parseInt(h) <= now.getHours();
+
+                // Bắt đầu dòng mới
+                if (index % 4 === 0) {
+                    row = document.createElement('tr');
+                    timeTable.appendChild(row);
+                }
+
+                // Tạo ô
+                const cell = document.createElement('td');
+                cell.textContent = hour;
+
+                // Vô hiệu hóa giờ trong quá khứ
+                if (isPast) {
+                    cell.classList.add('disabled');
+                } else {
+                    cell.addEventListener('click', () => selectTime(cell, hour));
+                }
+
+                row.appendChild(cell);
+            });
+        }
+
+        // Chọn thời gian
+        function selectTime(cell, hour) {
+            // Bỏ chọn tất cả ô
+            document.querySelectorAll('#timeTable td').forEach(td => td.classList.remove('selected'));
+            // Chọn ô hiện tại
+            cell.classList.add('selected');
+            // Lưu giờ được chọn
+            selectedHour = hour;
+            updateDateTime();
+        }
+
+        // Cập nhật giá trị datetime
+        function updateDateTime() {
+            const selectedDate = ngayInput.value;
+            if (selectedDate && selectedHour) {
+                gioInput.value = `${selectedDate} ${selectedHour}:00`; // Gộp ngày và giờ
+            }
+        }
+
+        // Cập nhật bảng giờ khi thay đổi ngày
+        ngayInput.addEventListener('change', () => {
+            selectedHour = null; // Xóa giờ đã chọn nếu thay đổi ngày
+            updateDateTime();
+            renderTimeTable();
+        });
+
+        // Đặt ngày tối thiểu là hôm nay
+        const today = new Date().toISOString().split('T')[0];
+        ngayInput.setAttribute('min', today);
+
+        // Gọi lần đầu khi load trang
+        ngayInput.value = today; // Mặc định chọn hôm nay
+        renderTimeTable();
 
 // Hàm tính thời gian kết thúc
 function calculateEndTime() {
