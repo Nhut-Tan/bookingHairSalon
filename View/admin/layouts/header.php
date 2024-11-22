@@ -251,7 +251,7 @@
                                 </p>
                             </a>
                              <li class="nav-item">
-                                <a href="../Controller/admin/NhanvienController.php?action=list" class="nav-link">
+                                <a href="index.php?controller=danhsachnhanvien" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                         <p>Danh sách</p>
                                          </a>
