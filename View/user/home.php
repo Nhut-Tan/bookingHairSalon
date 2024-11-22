@@ -27,33 +27,33 @@
     <span class="dot" onclick="currentSlide(4)"></span>
     <span class="dot" onclick="currentSlide(5)"></span>
   </div>
+  <?php
+require_once '../Model/Dichvu.php';
 
-  <div id="dichvu" class="container py-5">
+// Lấy danh sách dịch vụ từ cơ sở dữ liệu
+$dichvus = Dichvu::layDanhSachDichVu();
+?>
+ <div id="dichvu" class="container py-5">
     <h2 class="text-center">Dịch Vụ Của Chúng Tôi</h2>
     <div class="row mt-4">
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image1.jpg" alt="Service 1" class="img-fluid">
-          <h4>Dịch Vụ 1</h4>
-          <p>Miêu tả dịch vụ 1.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image2.jpg" alt="Service 2" class="img-fluid">
-          <h4>Dịch Vụ 2</h4>
-          <p>Miêu tả dịch vụ 2.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image3.jpg" alt="Service 3" class="img-fluid">
-          <h4>Dịch Vụ 3</h4>
-          <p>Miêu tả dịch vụ 3.</p>
-        </div>
-      </div>
+        <?php if (!empty($dichvus)): ?>
+            <?php foreach ($dichvus as $dichvu): ?>
+                <div class="col-md-4">
+                    <div class="service-box text-center p-3 border rounded">
+                        <img src="../public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>" class="img-fluid mb-3" style="height: 150px; object-fit: cover;">
+                        <h4><?= $dichvu['tendv'] ?></h4>
+                        <p><?= $dichvu['mota'] ?></p>
+                        <p><strong>Giá:</strong> <?= number_format($dichvu['gia'], 0, ',', '.') ?> VNĐ</p>
+                        <p><strong>Thời gian:</strong> <?= $dichvu['thoiluong'] ?> phút</p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">Hiện chưa có dịch vụ nào.</p>
+        <?php endif; ?>
     </div>
-  </div>
+</div>
+
 
   <div id="khuyenmai" class="container py-5">
     <h2 class="text-center">Tin Tức Khuyến Mãi</h2>

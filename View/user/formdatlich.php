@@ -51,6 +51,88 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
             background-color: #007bff;
             color: #fff;
         }
+
+        .service-option {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    .service-option:hover {
+        background-color: #f9f9f9;
+        border-color: #007bff;
+    }
+
+    .service-option input {
+        display: none; /* Ẩn checkbox */
+    }
+
+    .service-option img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 15px;
+    }
+
+    .service-option.checked {
+        background-color: #007bff;
+        border-color: #007bff;
+        color: #fff;
+    }
+
+    .service-option label {
+        margin: 0;
+        font-size: 16px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .nhanvien-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nhanvien-item {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        width: calc(33.33% - 10px); /* 3 cột */
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .nhanvien-item input {
+        display: none;
+    }
+
+    .nhanvien-item img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    .nhanvien-item:hover {
+        background-color: #f0f0f0;
+    }
+
+    .nhanvien-item input:checked + label {
+        background-color: #007bff;
+        color: white;
+        border-color: #007bff;
+    }
+    
     </style>
 </head>
 <body>
@@ -77,26 +159,35 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
 
                 <!-- Chọn nhân viên -->
                 <div class="form-group">
-                    <label for="manv">Chọn Nhân Viên:</label>
-                    <select name="manv" id="manv" class="form-control" required>
-                        <?php foreach ($nhanviens as $nhanvien): ?>
-                            <option value="<?= $nhanvien['manv'] ?>"><?= $nhanvien['ten'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
+               <label for="manv">Chọn Nhân Viên:</label>
+              <div class="nhanvien-container">
+                 <?php foreach ($nhanviens as $nhanvien): ?>
+                 <div class="nhanvien-item">
+                    <input type="radio" name="manv" id="nhanvien-<?= $nhanvien['manv'] ?>" value="<?= $nhanvien['manv'] ?>" required>
+                    <label for="nhanvien-<?= $nhanvien['manv'] ?>" style="width: 100%; display: flex; align-items: center;">
+                     <img src="../public/user/hinhnv/<?= $nhanvien['hinh'] ?>" alt="<?= $nhanvien['ten'] ?>">
+                     <span><?= $nhanvien['ten'] ?></span>
+                 </label>
+             </div>
+           <?php endforeach; ?>
+         </div>
+    </div>
 
                 <!-- Chọn dịch vụ -->
                 <div class="form-group">
-                    <label for="dichvu">Chọn Dịch Vụ:</label><br>
-                    <?php foreach ($dichvus as $dichvu): ?>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>" data-thoiluong="<?= $dichvu['thoiluong'] ?>">
-                            <label class="form-check-label">
-                                <?= $dichvu['tendv'] ?> (Thời gian: <?= $dichvu['thoiluong'] ?> phút)
-                            </label>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+                  <label for="dichvu">Chọn Dịch Vụ:</label><br>
+                     <?php foreach ($dichvus as $dichvu): ?>
+                       <div class="service-option" onclick="toggleCheckbox(this)">
+                         <input type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>" data-thoiluong="<?= $dichvu['thoiluong'] ?>">
+                         <img src="../public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>">
+                  <label>
+                          <?= $dichvu['tendv'] ?> <br>
+                         <small>(Thời gian: <?= $dichvu['thoiluong'] ?> phút)</small>
+                  </label>
+              </div>
+                     <?php endforeach; ?>
+                    </div>
+
 
                 <!-- Chọn ngày -->
                 <div class="form-group">
@@ -126,6 +217,18 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
+
+         function toggleCheckbox(element) {
+        const checkbox = element.querySelector('input[type="checkbox"]');
+        checkbox.checked = !checkbox.checked;
+
+        // Thêm hoặc xóa lớp CSS `checked` dựa trên trạng thái của checkbox
+        if (checkbox.checked) {
+            element.classList.add('checked');
+        } else {
+            element.classList.remove('checked');
+        }
+    }
         // Đặt ngày tối thiểu là hôm nay
         const hours = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", 
                        "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", 

@@ -250,6 +250,13 @@
                                     <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
+                             <li class="nav-item">
+                                <a href="../Controller/admin/NhanvienController.php?action=list" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                        <p>Danh sách</p>
+                                         </a>
+                                </li>
+
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
