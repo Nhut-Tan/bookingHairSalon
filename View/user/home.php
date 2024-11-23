@@ -29,6 +29,7 @@
   </div>
   <?php
 require_once 'Model/Dichvu.php';
+require_once 'Model/tintuckhuyenmai.php';
 
 // Lấy danh sách dịch vụ từ cơ sở dữ liệu
 $dichvus = Dichvu::layDanhSachDichVu();
@@ -55,32 +56,30 @@ $dichvus = Dichvu::layDanhSachDichVu();
 </div>
 
 
-  <div id="khuyenmai" class="container py-5">
+<?php
+// Lấy danh sách tin tức khuyến mãi từ cơ sở dữ liệu
+$tinTucs = Tintuckhuyenmai::layDanhSachTinTuc();
+?>
+<div id="khuyenmai" class="container py-5">
     <h2 class="text-center">Tin Tức Khuyến Mãi</h2>
     <div class="row mt-4">
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image1.jpg" alt="Khuyến Mãi 1" class="img-fluid">
-          <h4>Khuyến Mãi 1</h4>
-          <p>Miêu tả Khuyến Mãi 1.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image2.jpg" alt="Khuyến Mãi 2" class="img-fluid">
-          <h4>Khuyến Mãi 2</h4>
-          <p>Miêu tả Khuyến Mãi 2.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image3.jpg" alt="Khuyến Mãi 3" class="img-fluid">
-          <h4>Khuyến Mãi 3</h4>
-          <p>Miêu tả Khuyến Mãi 3.</p>
-        </div>
-      </div>
+        <?php if (!empty($tinTucs)): ?>
+            <?php foreach ($tinTucs as $tin): ?>
+                <div class="col-md-4">
+                    <div class="promotion-box text-center p-3 border rounded">
+                        <img src="public/user/hinhkm/<?= $tin['hinhanh'] ?>" alt="<?= $tin['tieude'] ?>" class="img-fluid mb-3" style="height: 150px; object-fit: cover;">
+                        <h4><?= $tin['tieude'] ?></h4>
+                        <p><?= substr($tin['noidung'], 0, 100) ?>...</p>
+                        <a href="index.php?controller=hienthitintuc&id=<?= $tin['matintuc'] ?>" class="btn btn-primary mt-2">Xem Chi Tiết</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">Hiện chưa có tin tức khuyến mãi nào.</p>
+        <?php endif; ?>
     </div>
-  </div>
+</div>
+
 
   <script>
  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
