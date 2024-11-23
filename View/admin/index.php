@@ -35,7 +35,34 @@ switch ($controller) {
                     nhanvienController::hienThiFormSuaNhanVien();  // Gọi hàm hiển thị form sửa nhân viên
                 }
                 break;
-        
+            // Các case cho TintucKhuyenmai
+    case 'danhsachtintuc':
+        require_once '../../Controller/TintucController.php';
+        TintucController::hienThiDanhSachTinTuc();  
+        break;
+
+    case 'themTintuc':
+        require_once '../../Controller/TintucController.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            TintucController::themTinTuc();
+        } else {
+            TintucController::hienThiFormThemTinTuc();  
+        }
+        break;
+
+    case 'xoaTintuc':
+        require_once '../../Controller/TintucController.php';
+        TintucController::xoaTinTuc();  
+        break;
+
+    case 'suaTintuc':
+        require_once '../../Controller/TintucController.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            TintucController:: suaTinTuc();  
+        } else {
+            TintucController::hienThiFormSuaTinTuc();  
+        }
+        break;
 
     default:
         // Nếu không có controller hoặc controller không xác định, load trang chủ
