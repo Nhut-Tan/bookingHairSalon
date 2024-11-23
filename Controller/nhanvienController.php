@@ -1,6 +1,10 @@
 <?php
 require_once '../../Model/Nhanvien.php';
 class nhanvienController {
+
+    public static function hienThiFormThemNhanVien() {
+            include '../../View/admin/pages/formthemnhanvien.php';  // Hiển thị form sửa   
+    }
     public static function hienThiDanhSachNhanVien() {
         $nhanviens = Nhanvien::layDanhSachNhanVien();
         include '../../View/admin/pages/danhsachnhanvien.php';

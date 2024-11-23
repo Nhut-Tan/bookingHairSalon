@@ -17,7 +17,7 @@ switch ($controller) {
             nhanvienController::themNhanVien();
         } else {
             // Hiển thị form thêm nhân viên
-            include('pages/formthemnhanvien.php');
+            nhanvienController::hienThiFormThemNhanVien(); 
         }
         break;
      case 'xoaNhanVien':

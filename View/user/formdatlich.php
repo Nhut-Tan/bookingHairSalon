@@ -1,7 +1,7 @@
 <?php
 // Kết nối tới cơ sở dữ liệu và lấy danh sách nhân viên và dịch vụ
-require_once '../Model/Dichvu.php';
-require_once '../Model/Nhanvien.php';
+require_once 'Model/Dichvu.php';
+require_once 'Model/Nhanvien.php';
 
 // Lấy danh sách dịch vụ từ database
 $dichvus = Dichvu::layDanhSachDichVu();
@@ -138,7 +138,7 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
 <body>
     <div class="container">
         <div class="form-container">
-            <form action="../Controller/DatCuocHenController.php" method="POST">
+            <form action="index.php?controller=datlichhen" method="POST">
                 <h1 class="text-center mb-4">Đặt Cuộc Hẹn</h1>
 
                 <!-- Thông tin khách hàng -->
@@ -165,7 +165,7 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
                  <div class="nhanvien-item">
                     <input type="radio" name="manv" id="nhanvien-<?= $nhanvien['manv'] ?>" value="<?= $nhanvien['manv'] ?>" required>
                     <label for="nhanvien-<?= $nhanvien['manv'] ?>" style="width: 100%; display: flex; align-items: center;">
-                     <img src="../public/user/hinhnv/<?= $nhanvien['hinh'] ?>" alt="<?= $nhanvien['ten'] ?>">
+                     <img src="public/user/hinhnv/<?= $nhanvien['hinh'] ?>" alt="<?= $nhanvien['ten'] ?>">
                      <span><?= $nhanvien['ten'] ?></span>
                  </label>
              </div>
@@ -179,7 +179,7 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
                      <?php foreach ($dichvus as $dichvu): ?>
                        <div class="service-option" onclick="toggleCheckbox(this)">
                          <input type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>" data-thoiluong="<?= $dichvu['thoiluong'] ?>">
-                         <img src="../public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>">
+                         <img src="public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>">
                   <label>
                           <?= $dichvu['tendv'] ?> <br>
                          <small>(Thời gian: <?= $dichvu['thoiluong'] ?> phút)</small>

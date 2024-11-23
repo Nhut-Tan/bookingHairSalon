@@ -2,19 +2,19 @@
   <div class="slideshow-container">
     <div class="slides">
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-1.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-1.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-2.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-2.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-3.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-3.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-4.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-4.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-5.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-5.webp" style="width:100%">
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
     <span class="dot" onclick="currentSlide(5)"></span>
   </div>
   <?php
-require_once '../Model/Dichvu.php';
+require_once 'Model/Dichvu.php';
 
 // Lấy danh sách dịch vụ từ cơ sở dữ liệu
 $dichvus = Dichvu::layDanhSachDichVu();
@@ -40,7 +40,7 @@ $dichvus = Dichvu::layDanhSachDichVu();
             <?php foreach ($dichvus as $dichvu): ?>
                 <div class="col-md-4">
                     <div class="service-box text-center p-3 border rounded">
-                        <img src="../public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>" class="img-fluid mb-3" style="height: 150px; object-fit: cover;">
+                        <img src="public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>" class="img-fluid mb-3" style="height: 150px; object-fit: cover;">
                         <h4><?= $dichvu['tendv'] ?></h4>
                         <p><?= $dichvu['mota'] ?></p>
                         <p><strong>Giá:</strong> <?= number_format($dichvu['gia'], 0, ',', '.') ?> VNĐ</p>
