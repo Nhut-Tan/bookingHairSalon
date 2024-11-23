@@ -1,8 +1,9 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="#">BlogTinTuc</a>.</strong>
+    <strong>Copyright &copy; 2024-2025 <a href="#">Quản Lý Tiệm Cắt Tóc</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.3-pre
+      <b>Nguyễn Trần Phúc Thịnh</b> D21_TH12<br>
+      <b>Phan Nhựt Tân</b> D21_TH10<br>
   </div>
 </footer>
 

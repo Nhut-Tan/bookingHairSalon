@@ -2,7 +2,8 @@
 <div class="container mt-4">
     <h2 class="text-center">Danh Sách Nhân Viên</h2>
     <div class="text-right mb-3">
-        <a href="?action=themNhanVien" class="btn btn-primary">Thêm Nhân Viên</a>
+        <a href="index.php?controller=themNhanVien" class="btn btn-primary">Thêm Nhân Viên</a>
+        <a href="index.php" class="btn btn-secondary">Trở Về</a>
     </div>
     <table class="table table-bordered">
         <thead>
@@ -26,8 +27,8 @@
                         <img src="../../public/user/hinhnv/<?= $nhanvien['hinh'] ?>" alt="<?= $nhanvien['ten'] ?>" style="width: 50px; height: 50px; object-fit: cover;">
                     </td>
                     <td>
-                        <a href="?action=suaNhanVien&manv=<?= $nhanvien['manv'] ?>" class="btn btn-warning btn-sm">Sửa</a>
-                        <a href="?action=xoaNhanVien&manv=<?= $nhanvien['manv'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
+                        <a href="index.php?controller=suaNhanVien&manv=<?= $nhanvien['manv'] ?>" class="btn btn-warning btn-sm">Sửa</a>
+                        <a href="index.php?controller=xoaNhanVien&manv=<?= $nhanvien['manv'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

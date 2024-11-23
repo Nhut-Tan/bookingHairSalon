@@ -1,25 +1,47 @@
 <?php
-require('layouts/header.php');  // Bao gồm header chung
-
-// Lấy controller từ URL nếu có
-if (isset($_GET['controller'])) {
-    $controller = $_GET['controller'];
-} else {
-    $controller = '';  // Nếu không có controller, mặc định là trống
-}
-
-// Kiểm tra controller và xử lý
+ob_start();  // Bắt đầu đệm đầu ra
+require('layouts/header.php');  
+$controller = isset($_GET['controller']) ? $_GET['controller'] : '';
+// Gọi controller phù hợp
 switch ($controller) {
-    case 'danhsachnhanvien':  // Nếu controller là 'danhsachnhanvien'
+    case 'danhsachnhanvien':
         // Gọi controller để lấy danh sách nhân viên
         require_once '../../Controller/nhanvienController.php';
         nhanvienController::hienThiDanhSachNhanVien();  // Hiển thị danh sách nhân viên
         break;
-    
-    default:  // Nếu không có controller hoặc controller không xác định, load trang chủ
+
+    case 'themNhanVien':
+        require_once '../../Controller/nhanvienController.php';
+        // Kiểm tra xem có phải là POST request không, nếu có thì xử lý thêm nhân viên
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            nhanvienController::themNhanVien();
+        } else {
+            // Hiển thị form thêm nhân viên
+            include('pages/formthemnhanvien.php');
+        }
+        break;
+     case 'xoaNhanVien':
+            require_once '../../Controller/nhanvienController.php';
+            // Xử lý xóa nhân viên
+            nhanvienController::xoaNhanVien();  // Gọi hàm xóa nhân viên từ controller
+            break;
+     case 'suaNhanVien':
+                require_once '../../Controller/nhanvienController.php';
+                // Xử lý sửa nhân viên
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    nhanvienController::suaNhanVien();  // Gọi hàm sửa nhân viên từ controller
+                } else {
+                    // Hiển thị form sửa nhân viên
+                    nhanvienController::hienThiFormSuaNhanVien();  // Gọi hàm hiển thị form sửa nhân viên
+                }
+                break;
+        
+
+    default:
+        // Nếu không có controller hoặc controller không xác định, load trang chủ
         require('pages/home.php');  // Mặc định là hiển thị trang chủ
         break;
 }
-
 require('layouts/footer.php');  // Bao gồm footer chung
+ob_end_flush();  // Kết thúc đệm đầu ra và gửi tất cả nội dung
 ?>
