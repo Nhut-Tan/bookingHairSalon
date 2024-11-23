@@ -174,7 +174,7 @@
                         <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
                         <li class="nav-item has-treeview">
-                            <a href="index.php" class="nav-link active">
+                            <a href="../../index.php" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p>
                                     Trang chủ
@@ -190,96 +190,29 @@
                                     <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thêm</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Xóa</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sửa</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                   Danh Sách Order
+                                    Cuộc Hẹn
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thêm</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Xóa</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sửa</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="index.php?controller=danhsachtintuc" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Tin Tức Khuyến Mãi
                                     <i class="fas fa-angle-left right"></i>
                                     <span class="badge badge-info right">6</span>
                                 </p>
-                            </a>
-                             <li class="nav-item">
-                                <a href="index.php?controller=danhsachtintuc" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách</p>
-                                         </a>
-                                </li>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thêm</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Xóa </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sửa</p>
-                                    </a>
-                                </li>
-                            </ul>
+                            </a>    
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="index.php?controller=danhsachnhanvien" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Nhân Viên 
@@ -287,33 +220,6 @@
                                     <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
-                             <li class="nav-item">
-                                <a href="index.php?controller=danhsachnhanvien" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                        <p>Danh sách</p>
-                                         </a>
-                                </li>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Thêm</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Xóa </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sửa</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
 
 
