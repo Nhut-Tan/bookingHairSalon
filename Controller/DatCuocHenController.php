@@ -37,6 +37,8 @@ class DatCuocHenController {
             if (empty($tenkh) || empty($sdt) || empty($emailkh) || empty($manv) || empty($giobd) || empty($dichvu)) {
                 // Nếu có trường nào còn trống, có thể thông báo lỗi cho người dùng
                 echo "Vui lòng điền đầy đủ thông tin!";
+                header("Location: index.php?controller=hienthiformdatlich");
+                exit(); 
                 return; // Dừng thực thi nếu thiếu thông tin
             }
 
