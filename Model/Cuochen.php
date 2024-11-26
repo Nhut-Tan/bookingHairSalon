@@ -61,5 +61,20 @@ class Cuochen {
         $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
         return $result->fetch_all(MYSQLI_ASSOC); // Trả về danh sách cuộc hẹn
     }
+    public static function layDsCuochen() {
+        $db = new Database();
+        $db->connect();
+        $stmt=$db->conn->prepare("SELECT c.mach,c.giobd, kh.ten, nv.ten AS tennv, GROUP_CONCAT(dv.tendv SEPARATOR ', ') AS dichvudat
+                                    FROM cuochhen c
+                                    JOIN  khachhang kh ON c.makh = kh.makh
+                                    JOIN  nhanvien nv ON c.manv = nv.manv
+                                    JOIN  dichvudat dvd ON c.mach = dvd.mach
+                                    JOIN  dichvu dv ON dvd.madv = dv.madv
+                                    GROUP BY c.mach, kh.ten, nv.ten");
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $db->closeDatabase();
+        return $result->fetch_all(MYSQLI_ASSOC);
+     }
 }
 ?>

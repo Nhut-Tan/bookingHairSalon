@@ -1,8 +1,12 @@
 <?php
+//session_start();
   require('View/user/header.php');
   $controller = isset($_GET['controller']) ? $_GET['controller'] : '';
 // Gọi controller phù hợp
 switch ($controller) {
+    case 'admin':
+        include 'View/admin/pages/login.php';
+        break; 
     case 'hienthiformdatlich':
         require_once 'Controller/DatCuocHenController.php';
             DatCuocHenController::hienThiFormDatLich();  

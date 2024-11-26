@@ -17,16 +17,17 @@
         <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-5.webp" style="width:100%">
       </div>
     </div>
-  </div>
-
-  <!-- Dấu chấm điều hướng -->
-  <div class="dot-container">
+    <div class="dot-container">
     <span class="dot" onclick="currentSlide(1)"></span>
     <span class="dot" onclick="currentSlide(2)"></span>
     <span class="dot" onclick="currentSlide(3)"></span>
     <span class="dot" onclick="currentSlide(4)"></span>
     <span class="dot" onclick="currentSlide(5)"></span>
   </div>
+  </div>
+
+  <!-- Dấu chấm điều hướng -->
+ 
   <?php
 require_once 'Model/Dichvu.php';
 require_once 'Model/tintuckhuyenmai.php';
@@ -99,7 +100,7 @@ function smoothScroll(target) {
     const targetPosition = target.offsetTop;
     const offset = 70; // Điều chỉnh khoảng cách offset
     const distance = targetPosition - startPosition - offset;
-    const duration = 800;
+    const duration = 100;
 
     let startTime = null;
 

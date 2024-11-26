@@ -4,6 +4,14 @@ require('layouts/header.php');
 $controller = isset($_GET['controller']) ? $_GET['controller'] : '';
 // Gọi controller phù hợp
 switch ($controller) {
+    case 'logout':
+        require_once '../../Controller/Logout.php';
+        AuthController::logout();
+        break;
+    case 'dscuochen':
+        require_once '../../Controller/Booking.php';
+        Booking::getAllListBooking();  // Hiển thị danh sách nhân viên
+        break;
     case 'danhsachnhanvien':
         // Gọi controller để lấy danh sách nhân viên
         require_once '../../Controller/nhanvienController.php';

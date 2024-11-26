@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
 
@@ -121,9 +122,8 @@
                 </li>
                 <!-- Notifications Dropdown Menu -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">15</span>
+                    <a class="nav-link" href="index.php?controller=logout">
+                        <i class="fas fa-sign-out-alt"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <span class="dropdown-item dropdown-header">15 Notifications</span>
@@ -164,7 +164,7 @@
                         <img src="../../Public/admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Nguyễn Trần Phúc Thịnh</a>
+                        <a href="#" class="d-block"><?php echo $_SESSION['username']?></a>
                     </div>
                 </div>
 
@@ -192,7 +192,7 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="index.php?controller=dscuochen" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Cuộc Hẹn
