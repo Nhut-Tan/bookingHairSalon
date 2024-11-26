@@ -52,12 +52,6 @@
             <li class="nav-item">
               <a class="nav-link text-light" href="#khuyenmai">Tin Tức Khuyến Mãi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="sanpham3.com">Đặt Lịch Hẹn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="sanpham2.com"><i class="bi bi-box-arrow-in-right"></i> Đăng Nhập</a>
-            </li>
           </ul>
         </div>
         <div class="col-sm-4">
