@@ -34,10 +34,10 @@
       </div>
     </div>
   </footer>
-  <script src="../Public/user/js/jquery.min.js"></script>
-  <script src="../Public/user/js/popper.js"></script>
-  <script src="../Public/user/js/bootstrap.min.js"></script>
-  <script src="../Public/user/js/main.js"></script>
+  <script src="Public/user/js/jquery.min.js"></script>
+  <script src="Public/user/js/popper.js"></script>
+  <script src="Public/user/js/bootstrap.min.js"></script>
+  <script src="Public/user/js/main.js"></script>
 </body>
 
 </html>

@@ -2,85 +2,85 @@
   <div class="slideshow-container">
     <div class="slides">
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-1.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-1.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-2.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-2.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-3.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-3.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-4.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-4.webp" style="width:100%">
       </div>
       <div class="mySlides">
-        <img src="../Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-5.webp" style="width:100%">
+        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-5.webp" style="width:100%">
       </div>
     </div>
-  </div>
-
-  <!-- Dấu chấm điều hướng -->
-  <div class="dot-container">
+    <div class="dot-container">
     <span class="dot" onclick="currentSlide(1)"></span>
     <span class="dot" onclick="currentSlide(2)"></span>
     <span class="dot" onclick="currentSlide(3)"></span>
     <span class="dot" onclick="currentSlide(4)"></span>
     <span class="dot" onclick="currentSlide(5)"></span>
   </div>
+  </div>
 
-  <div id="dichvu" class="container py-5">
+  <!-- Dấu chấm điều hướng -->
+ 
+  <?php
+require_once 'Model/Dichvu.php';
+require_once 'Model/tintuckhuyenmai.php';
+
+// Lấy danh sách dịch vụ từ cơ sở dữ liệu
+$dichvus = Dichvu::layDanhSachDichVu();
+?>
+ <div id="dichvu" class="container py-5">
     <h2 class="text-center">Dịch Vụ Của Chúng Tôi</h2>
     <div class="row mt-4">
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image1.jpg" alt="Service 1" class="img-fluid">
-          <h4>Dịch Vụ 1</h4>
-          <p>Miêu tả dịch vụ 1.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image2.jpg" alt="Service 2" class="img-fluid">
-          <h4>Dịch Vụ 2</h4>
-          <p>Miêu tả dịch vụ 2.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image3.jpg" alt="Service 3" class="img-fluid">
-          <h4>Dịch Vụ 3</h4>
-          <p>Miêu tả dịch vụ 3.</p>
-        </div>
-      </div>
+        <?php if (!empty($dichvus)): ?>
+            <?php foreach ($dichvus as $dichvu): ?>
+                <div class="col-md-4">
+                    <div class="service-box text-center p-3 border rounded">
+                        <img src="public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>" class="img-fluid mb-3" style="height: 150px; object-fit: cover;">
+                        <h4><?= $dichvu['tendv'] ?></h4>
+                        <p><?= $dichvu['mota'] ?></p>
+                        <p><strong>Giá:</strong> <?= number_format($dichvu['gia'], 0, ',', '.') ?> VNĐ</p>
+                        <p><strong>Thời gian:</strong> <?= $dichvu['thoiluong'] ?> phút</p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">Hiện chưa có dịch vụ nào.</p>
+        <?php endif; ?>
     </div>
-  </div>
+</div>
 
-  <div id="khuyenmai" class="container py-5">
+
+<?php
+// Lấy danh sách tin tức khuyến mãi từ cơ sở dữ liệu
+$tinTucs = Tintuckhuyenmai::layDanhSachTinTuc();
+?>
+<div id="khuyenmai" class="container py-5">
     <h2 class="text-center">Tin Tức Khuyến Mãi</h2>
     <div class="row mt-4">
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image1.jpg" alt="Khuyến Mãi 1" class="img-fluid">
-          <h4>Khuyến Mãi 1</h4>
-          <p>Miêu tả Khuyến Mãi 1.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image2.jpg" alt="Khuyến Mãi 2" class="img-fluid">
-          <h4>Khuyến Mãi 2</h4>
-          <p>Miêu tả Khuyến Mãi 2.</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="service-box">
-          <img src="path/to/service-image3.jpg" alt="Khuyến Mãi 3" class="img-fluid">
-          <h4>Khuyến Mãi 3</h4>
-          <p>Miêu tả Khuyến Mãi 3.</p>
-        </div>
-      </div>
+        <?php if (!empty($tinTucs)): ?>
+            <?php foreach ($tinTucs as $tin): ?>
+                <div class="col-md-4">
+                    <div class="promotion-box text-center p-3 border rounded">
+                        <img src="public/user/hinhkm/<?= $tin['hinhanh'] ?>" alt="<?= $tin['tieude'] ?>" class="img-fluid mb-3" style="height: 150px; object-fit: cover;">
+                        <h4><?= $tin['tieude'] ?></h4>
+                        <p><?= substr($tin['noidung'], 0, 100) ?>...</p>
+                        <a href="index.php?controller=hienthitintuc&id=<?= $tin['matintuc'] ?>" class="btn btn-primary mt-2">Xem Chi Tiết</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">Hiện chưa có tin tức khuyến mãi nào.</p>
+        <?php endif; ?>
     </div>
-  </div>
+</div>
+
 
   <script>
  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -100,7 +100,7 @@ function smoothScroll(target) {
     const targetPosition = target.offsetTop;
     const offset = 70; // Điều chỉnh khoảng cách offset
     const distance = targetPosition - startPosition - offset;
-    const duration = 800;
+    const duration = 100;
 
     let startTime = null;
 

@@ -15,11 +15,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="../Public/user/style.css">
+  <link rel="stylesheet" href="Public/user/style.css">
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-  <link rel="stylesheet" href="../Public/user/css/ionicons.min.css">
-  <link rel="stylesheet" href="../Public/user/css/style.css">
+  <link rel="stylesheet" href="Public/user/css/ionicons.min.css">
+  <link rel="stylesheet" href="Public/user/css/style.css">
+
 </head>
 
 <body>
@@ -28,7 +29,7 @@
    <nav class="navbar navbar-expand-lg navbar-light" id="navbar">
     <div class="container-fluid">
       <div class="col-2 col-sm-1">
-        <img class="logo img-fluid" src="../Public/user/HinhAnhThuoc/images.jfif" alt="">
+        <img class="logo img-fluid" src="Public/user/HinhAnhThuoc/images.jfif" alt="">
       </div>
       <div class="col-9 col-sm-2">
         <a class="navbar-brand" href="#" style="color: aliceblue; font-size: 40px;">IRONCAP</a>
@@ -51,26 +52,38 @@
             <li class="nav-item">
               <a class="nav-link text-light" href="#khuyenmai">Tin Tức Khuyến Mãi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="sanpham3.com">Đặt Lịch Hẹn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-light" href="sanpham2.com"><i class="bi bi-box-arrow-in-right"></i> Đăng Nhập</a>
-            </li>
           </ul>
         </div>
         <div class="col-sm-4">
-          <form class="d-flex">
-            <input style="border-radius:15px;font-size: 17px; margin-top:6px;" class="form-control me-2" type="text"
-              placeholder="Nhập Số Điện Thoại Để Đặt Lịch" aria-label="nhap so dt" name="sdt">
-            <button class="btn btn-outline-light" style="font-size: 17px; font-weight: bold; border-radius:15px;" type="submit">ĐẶT LỊCH</button>
-          </form>
+         <!-- header.php -->
+         <form class="d-flex" method="POST" action="index.php?controller=hienthiformdatlich" onsubmit="return validatePhoneNumber()">
+               <input style="border-radius:15px; font-size: 17px; margin-top:6px;" class="form-control me-2" type="text" placeholder="Nhập Số Điện Thoại Để Đặt Lịch" aria-label="nhap so dt" name="sdt" id="sdt" value="<?php echo isset($_POST['sdt']) ? $_POST['sdt'] : ''; ?>">
+               <button class="btn btn-outline-light" style="font-size: 17px; font-weight: bold; border-radius:15px;" type="submit">ĐẶT LỊCH</button>
+         </form>
         </div>
       </div>
     </div>
   </nav>
 
   <script>
+
+    function validatePhoneNumber() {
+    const phoneNumber = document.getElementById('sdt').value;
+
+    // Kiểm tra độ dài tối đa 10 số
+    if (phoneNumber.length != 10 ) {
+      alert("Số điện thoại Sai ");
+      return false;
+    }
+
+    // Kiểm tra xem số điện thoại chỉ chứa chữ số
+    if (!/^\d*$/.test(phoneNumber)) {
+      alert("Số điện thoại chỉ được chứa các chữ số!");
+      return false;
+    }
+
+    return true;
+  }
     // Lấy thanh menu
     const navbar = document.getElementById("navbar");
 

@@ -4,7 +4,7 @@ class Database
 {
 	public $conn = NULL;
 	private $server = 'localhost';
-	private $dbName = 'qlsl';
+	private $dbName = 'quanlytiemcattoc';
 	private $user = 'root';
 	private $password = '';
         

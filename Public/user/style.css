@@ -47,11 +47,10 @@
 }
  /* CSS cho slideshow */
  .slideshow-container {
-  width: 99vw;
-  overflow: hidden;
   position: relative;
-  margin: auto;
-  height: 860px;
+  width: 100vw; /* Chiều rộng toàn màn hình */
+ /* Chiều cao toàn màn hình */
+  overflow: hidden;
 }
 
 /* Slide */
