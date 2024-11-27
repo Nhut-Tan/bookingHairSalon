@@ -136,63 +136,66 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
         <div class="form-container">
-            <form action="index.php?controller=datlichhen" method="POST">
+            <form action="index.php?controller=datlichhen" method="POST" onsubmit="return validateForm()">
                 <h1 class="text-center mb-4">Đặt Cuộc Hẹn</h1>
 
                 <!-- Thông tin khách hàng -->
                 <div class="form-group">
                     <label for="tenkh">Tên Khách Hàng:</label>
-                    <input type="text" class="form-control" id="tenkh" name="tenkh" required>
+                    <input type="text" class="form-control" id="tenkh" name="tenkh">
+                    <small class="error-message" id="tenkh-error" style="color: red;"></small>
                 </div>
 
                 <div class="form-group">
                     <label for="sdt">Số Điện Thoại:</label>
                     <input type="text" class="form-control" id="sdt" name="sdt" value="<?php echo isset($_POST['sdt']) ? $_POST['sdt'] : ''; ?>" required>
+                    <small class="error-message" id="sdt-error" style="color: red;"></small>
                 </div>
 
                 <div class="form-group">
                     <label for="emailkh">Email:</label>
-                    <input type="email" class="form-control" id="emailkh" name="emailkh" required>
+                    <input type="email" class="form-control" id="emailkh" name="emailkh">
+                    <small class="error-message" id="emailkh-error" style="color: red;"></small>
                 </div>
 
                 <!-- Chọn nhân viên -->
                 <div class="form-group">
-               <label for="manv">Chọn Nhân Viên:</label>
-              <div class="nhanvien-container">
-                 <?php foreach ($nhanviens as $nhanvien): ?>
-                 <div class="nhanvien-item">
-                    <input type="radio" name="manv" id="nhanvien-<?= $nhanvien['manv'] ?>" value="<?= $nhanvien['manv'] ?>" required>
-                    <label for="nhanvien-<?= $nhanvien['manv'] ?>" style="width: 100%; display: flex; align-items: center;">
-                     <img src="public/user/hinhnv/<?= $nhanvien['hinh'] ?>" alt="<?= $nhanvien['ten'] ?>">
-                     <span><?= $nhanvien['ten'] ?></span>
-                 </label>
-             </div>
-           <?php endforeach; ?>
-         </div>
-    </div>
-
+                    <label for="manv">Chọn Nhân Viên:</label>
+                    <div class="nhanvien-container">
+                        <?php foreach ($nhanviens as $nhanvien): ?>
+                        <div class="nhanvien-item">
+                            <input type="radio" name="manv" id="nhanvien-<?= $nhanvien['manv'] ?>" value="<?= $nhanvien['manv'] ?>">
+                            <label for="nhanvien-<?= $nhanvien['manv'] ?>" style="width: 100%; display: flex; align-items: center;">
+                                <img src="public/user/hinhnv/<?= $nhanvien['hinh'] ?>" alt="<?= $nhanvien['ten'] ?>">
+                                <span><?= $nhanvien['ten'] ?></span>
+                            </label>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                    <small class="error-message" id="manv-error" style="color: red;"></small>
+                </div>
                 <!-- Chọn dịch vụ -->
                 <div class="form-group">
-                  <label for="dichvu">Chọn Dịch Vụ:</label><br>
+                <label for="dichvu">Chọn Dịch Vụ:</label><br>
                      <?php foreach ($dichvus as $dichvu): ?>
-                       <div class="service-option" onclick="toggleCheckbox(this)">
-                         <input type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>" data-thoiluong="<?= $dichvu['thoiluong'] ?>">
-                         <img src="public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>">
-                  <label>
-                          <?= $dichvu['tendv'] ?> <br>
-                         <small>(Thời gian: <?= $dichvu['thoiluong'] ?> phút)</small>
-                  </label>
-              </div>
+                        <div class="service-option" style="display: flex; align-items: center; margin-bottom: 10px;">
+                           <input type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>">
+                           <img src="public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>" style="width: 50px; height: 50px; margin-right: 10px;">
+                    <label>
+                                 <?= $dichvu['tendv'] ?> <br>
+                           <small>(Thời gian: <?= $dichvu['thoiluong'] ?> phút)</small>
+                         </label>
+                       </div>
                      <?php endforeach; ?>
-                    </div>
-
-
+                     <small class="error-message" id="dichvu-error" style="color: red;"></small>
+               </div>
                 <!-- Chọn ngày -->
                 <div class="form-group">
                     <label for="ngay">Chọn Ngày:</label>
-                    <input type="date" class="form-control" id="ngay" name="ngay" required>
+                    <input type="date" class="form-control" id="ngay" name="ngay">
+                    <small class="error-message" id="ngay-error" style="color: red;"></small>
                 </div>
 
                 <!-- Chọn giờ -->
@@ -201,22 +204,88 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
                     <table id="timeTable" class="table table-bordered">
                         <!-- Thời gian sẽ được tạo động -->
                     </table>
+                    <small class="error-message" id="gio-error" style="color: red;"></small>
                 </div>
 
                 <!-- Input ẩn để lưu giá trị datetime -->
-                <input type="hidden" id="giobd" name="giobd" required>
+                <input type="hidden" id="giobd" name="giobd">
 
                 <button type="submit" class="btn btn-primary btn-block">Đặt Cuộc Hẹn</button>
             </form>
         </div>
     </div>
-
     <!-- Liên kết tới Bootstrap JS (và jQuery) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
+          function validateForm() {
+            let isValid = true;
+
+            // Lấy các phần tử cần kiểm tra
+            const tenkh = document.getElementById("tenkh");
+            const sdt = document.getElementById("sdt");
+            const emailkh = document.getElementById("emailkh");
+            const manv = document.querySelector("input[name='manv']:checked");
+            const dichvu = document.querySelectorAll("input[name='dichvu[]']:checked");
+            const ngay = document.getElementById("ngay");
+            const giobd = document.getElementById("giobd");
+
+            // Xóa thông báo lỗi cũ
+            document.querySelectorAll(".error-message").forEach(msg => msg.textContent = "");
+
+            // Kiểm tra tên khách hàng
+            if (tenkh.value.trim() === "") {
+                document.getElementById("tenkh-error").textContent = "Tên khách hàng không được để trống.";
+                isValid = false;
+                tenkh.scrollIntoView();
+            }
+
+            // Kiểm tra số điện thoại
+            if (!/^\d{10}$/.test(sdt.value.trim())) {
+                document.getElementById("sdt-error").textContent = "Số điện thoại phải là 10 chữ số.";
+                isValid = false;
+                sdt.scrollIntoView();
+            }
+
+            // Kiểm tra email
+            if (!/\S+@\S+\.\S+/.test(emailkh.value.trim())) {
+                document.getElementById("emailkh-error").textContent = "Email không hợp lệ.";
+                isValid = false;
+                emailkh.scrollIntoView();
+            }
+
+            // Kiểm tra nhân viên
+            if (!manv) {
+                document.getElementById("manv-error").textContent = "Vui lòng chọn một nhân viên.";
+                isValid = false;
+                document.querySelector(".nhanvien-container").scrollIntoView();
+            }
+
+            // Kiểm tra dịch vụ
+            if (dichvu.length === 0) {
+                document.getElementById("dichvu-error").textContent = "Vui lòng chọn ít nhất một dịch vụ.";
+                isValid = false;
+                document.querySelector(".service-option").scrollIntoView();
+            }
+
+            // Kiểm tra ngày
+            if (!ngay.value) {
+                document.getElementById("ngay-error").textContent = "Vui lòng chọn ngày.";
+                isValid = false;
+                ngay.scrollIntoView();
+            }
+
+            // Kiểm tra giờ bắt đầu
+            if (!giobd.value) {
+                document.getElementById("gio-error").textContent = "Vui lòng chọn giờ.";
+                isValid = false;
+                giobd.scrollIntoView();
+            }
+
+            return isValid; // Trả về true nếu form hợp lệ
+        }
 
          function toggleCheckbox(element) {
         const checkbox = element.querySelector('input[type="checkbox"]');
@@ -331,6 +400,6 @@ document.getElementById('giobd').addEventListener('change', function () {
     calculateEndTime();
 });
 
-    </script>
+</script>
 </body>
 </html>

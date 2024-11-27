@@ -56,18 +56,34 @@
         </div>
         <div class="col-sm-4">
          <!-- header.php -->
-       <form class="d-flex" method="POST" action="index.php?controller=hienthiformdatlich">
-          <input style="border-radius:15px; font-size: 17px; margin-top:6px;" class="form-control me-2" type="text"
-        placeholder="Nhập Số Điện Thoại Để Đặt Lịch" aria-label="nhap so dt" name="sdt" value="<?php echo isset($_POST['sdt']) ? $_POST['sdt'] : ''; ?>">
-          <button class="btn btn-outline-light" style="font-size: 17px; font-weight: bold; border-radius:15px;" type="submit">ĐẶT LỊCH</button>
-     </form>
-
+         <form class="d-flex" method="POST" action="index.php?controller=hienthiformdatlich" onsubmit="return validatePhoneNumber()">
+               <input style="border-radius:15px; font-size: 17px; margin-top:6px;" class="form-control me-2" type="text" placeholder="Nhập Số Điện Thoại Để Đặt Lịch" aria-label="nhap so dt" name="sdt" id="sdt" value="<?php echo isset($_POST['sdt']) ? $_POST['sdt'] : ''; ?>">
+               <button class="btn btn-outline-light" style="font-size: 17px; font-weight: bold; border-radius:15px;" type="submit">ĐẶT LỊCH</button>
+         </form>
         </div>
       </div>
     </div>
   </nav>
 
   <script>
+
+    function validatePhoneNumber() {
+    const phoneNumber = document.getElementById('sdt').value;
+
+    // Kiểm tra độ dài tối đa 10 số
+    if (phoneNumber.length != 10 ) {
+      alert("Số điện thoại Sai ");
+      return false;
+    }
+
+    // Kiểm tra xem số điện thoại chỉ chứa chữ số
+    if (!/^\d*$/.test(phoneNumber)) {
+      alert("Số điện thoại chỉ được chứa các chữ số!");
+      return false;
+    }
+
+    return true;
+  }
     // Lấy thanh menu
     const navbar = document.getElementById("navbar");
 
