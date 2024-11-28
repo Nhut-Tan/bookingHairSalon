@@ -180,14 +180,11 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
                 <div class="form-group">
                 <label for="dichvu">Chọn Dịch Vụ:</label><br>
                      <?php foreach ($dichvus as $dichvu): ?>
-                        <div class="service-option" style="display: flex; align-items: center; margin-bottom: 10px;">
-                           <input type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>">
-                           <img src="public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>" style="width: 50px; height: 50px; margin-right: 10px;">
-                    <label>
-                                 <?= $dichvu['tendv'] ?> <br>
-                           <small>(Thời gian: <?= $dichvu['thoiluong'] ?> phút)</small>
-                         </label>
-                       </div>
+                        <div class="service-option" onclick="toggleCheckbox(this)">
+                          <input type="checkbox" name="dichvu[]" value="<?= $dichvu['madv'] ?>" data-thoiluong="<?= $dichvu['thoiluong'] ?>"> <!-- Thêm thuộc tính thời lượng -->
+                          <img src="public/user/hinhdv/<?= $dichvu['hinh'] ?>" alt="<?= $dichvu['tendv'] ?>" style="width: 50px; height: 50px; margin-right: 10px;">
+                         <label><?= $dichvu['tendv'] ?><br><small>(Thời gian: <?= $dichvu['thoiluong'] ?> phút)</small></label>
+                </div>
                      <?php endforeach; ?>
                      <small class="error-message" id="dichvu-error" style="color: red;"></small>
                </div>
@@ -287,17 +284,21 @@ $nhanviens = Nhanvien::layDanhSachNhanVien();
             return isValid; // Trả về true nếu form hợp lệ
         }
 
-         function toggleCheckbox(element) {
-        const checkbox = element.querySelector('input[type="checkbox"]');
-        checkbox.checked = !checkbox.checked;
+        function toggleCheckbox(element) {
+    const checkbox = element.querySelector('input[type="checkbox"]');
+    checkbox.checked = !checkbox.checked;
 
-        // Thêm hoặc xóa lớp CSS `checked` dựa trên trạng thái của checkbox
-        if (checkbox.checked) {
-            element.classList.add('checked');
-        } else {
-            element.classList.remove('checked');
-        }
+    // Thêm hoặc xóa lớp CSS `checked` dựa trên trạng thái của checkbox
+    if (checkbox.checked) {
+        element.classList.add('checked');
+    } else {
+        element.classList.remove('checked');
     }
+
+    // Gọi hàm tính thời gian kết thúc (nếu cần)
+    calculateEndTime();
+}
+
         // Đặt ngày tối thiểu là hôm nay
         const hours = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", 
                        "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", 
