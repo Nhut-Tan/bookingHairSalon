@@ -17,12 +17,12 @@
   }
   .navbar-nav .nav-link:hover {
     color: #FFD700; /* Thay đổi màu chữ khi hover, ví dụ: vàng */
-    background-color: #4793df; /* Thay đổi màu nền khi hover */
+    background-color: #6ab2e9; /* Thay đổi màu nền khi hover */
   }
 
   /* Tùy chỉnh cho nút tìm kiếm khi hover */
   .btn:hover {
-    background-color: #14abda; /* Thay đổi màu nền nút khi hover */
+    background-color: #21cce2; /* Thay đổi màu nền nút khi hover */
     color: #f1f1f1; /* Thay đổi màu chữ nút khi hover */
   }
 
