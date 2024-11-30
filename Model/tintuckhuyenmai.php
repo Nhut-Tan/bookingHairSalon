@@ -1,182 +1,168 @@
 <?php
-require_once 'Database.php'; 
+require_once 'Database.php';
 
 class Tintuckhuyenmai {
     // Lấy danh sách tất cả tin tức khuyến mãi
     public static function layDanhSachTinTuc() {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
+        $db->connect();
+        $conn = $db->getConnection();
 
-        $stmt = $db->conn->prepare("SELECT * FROM tintuckhuyenmai ORDER BY ngaydang DESC");
-        $stmt->execute();
-        $result = $stmt->get_result();
+        try {
+            $stmt = $conn->prepare("SELECT * FROM tintuckhuyenmai ORDER BY ngaydang DESC");
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // Trả về danh sách tin tức dưới dạng mảng liên kết
+        } catch (Exception $e) {
+            error_log("Lỗi khi lấy danh sách tin tức: " . $e->getMessage());
+            $result = [];
+        }
 
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
-        return $result->fetch_all(MYSQLI_ASSOC); // Trả về danh sách tin tức
+        $db->closeDatabase();
+        return $result;
     }
 
     // Lấy một tin tức khuyến mãi theo ID
     public static function layTinTucTheoID($matintuc) {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
+        $db->connect();
+        $conn = $db->getConnection();
 
-        $stmt = $db->conn->prepare("SELECT * FROM tintuckhuyenmai WHERE matintuc = ?");
-        $stmt->bind_param("i", $matintuc); // "i" cho kiểu INT
-        $stmt->execute();
-        $result = $stmt->get_result();
+        try {
+            $stmt = $conn->prepare("SELECT * FROM tintuckhuyenmai WHERE matintuc = :matintuc");
+            $stmt->bindParam(':matintuc', $matintuc, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC); // Trả về thông tin tin tức
+        } catch (Exception $e) {
+            error_log("Lỗi khi lấy tin tức theo ID: " . $e->getMessage());
+            $result = null;
+        }
 
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
-        return $result->fetch_assoc(); // Trả về tin tức với mã matintuc
+        $db->closeDatabase();
+        return $result;
     }
 
+    // Thêm tin tức khuyến mãi
     public static function taoTinTuc($data, $file) {
         $db = new Database();
         $db->connect();
-    
+        $conn = $db->getConnection();
+
         try {
-            // Xử lý upload hình ảnh
             $hinh = '';
             if ($file && $file['error'] === UPLOAD_ERR_OK) {
-                $targetDir = "../../public/user/hinhkm/"; // Đường dẫn thư mục lưu ảnh
+                $targetDir = "../../public/user/hinhkm/";
                 $hinh = basename($file['name']);
                 $targetFilePath = $targetDir . $hinh;
-    
-                // Di chuyển file từ tmp vào thư mục đích
+
                 if (!move_uploaded_file($file['tmp_name'], $targetFilePath)) {
                     throw new Exception("Không thể upload hình ảnh.");
                 }
             }
-    
-            // Thêm tin tức vào cơ sở dữ liệu
-            $stmt = $db->conn->prepare("INSERT INTO tintuckhuyenmai (tieude, noidung, hinhanh) VALUES (?, ?, ?)");
-            $stmt->bind_param("sss", $data['tieude'], $data['noidung'], $hinh);
+
+            $stmt = $conn->prepare("INSERT INTO tintuckhuyenmai (tieude, noidung, hinhanh) VALUES (:tieude, :noidung, :hinhanh)");
+            $stmt->bindParam(':tieude', $data['tieude'], PDO::PARAM_STR);
+            $stmt->bindParam(':noidung', $data['noidung'], PDO::PARAM_STR);
+            $stmt->bindParam(':hinhanh', $hinh, PDO::PARAM_STR);
             $stmt->execute();
-    
-            if ($stmt->affected_rows > 0) {
-                $result = true; // Thành công
-            } else {
-                $result = false; // Thất bại
-            }
-    
-            $stmt->close();
+
+            $result = $stmt->rowCount() > 0;
         } catch (Exception $e) {
-            $result = false;
             error_log("Lỗi khi thêm tin tức: " . $e->getMessage());
+            $result = false;
         }
-    
+
         $db->closeDatabase();
         return $result;
     }
-    
-    public static function  capNhatTinTuc($matintuc, $data, $file) {
+
+    // Cập nhật tin tức khuyến mãi
+    public static function capNhatTinTuc($matintuc, $data, $file) {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
-    
+        $db->connect();
+        $conn = $db->getConnection();
+
         try {
-            // Lấy thông tin hiện tại của tin tức để kiểm tra ảnh cũ nếu có
-            $stmt = $db->conn->prepare("SELECT hinhanh FROM tintuckhuyenmai WHERE matintuc = ?");
-            $stmt->bind_param("i", $matintuc);
+            $stmt = $conn->prepare("SELECT hinhanh FROM tintuckhuyenmai WHERE matintuc = :matintuc");
+            $stmt->bindParam(':matintuc', $matintuc, PDO::PARAM_INT);
             $stmt->execute();
-            $result = $stmt->get_result();
-            $tintuc = $result->fetch_assoc();
-    
+            $tintuc = $stmt->fetch(PDO::FETCH_ASSOC);
+
             if ($tintuc) {
-                // Xử lý hình ảnh mới (nếu có)
-                $hinhanh = $tintuc['hinhanh']; // Giữ lại tên ảnh cũ nếu không upload ảnh mới
+                $hinhanh = $tintuc['hinhanh'];
                 if ($file && $file['error'] === UPLOAD_ERR_OK) {
-                    // Nếu có ảnh mới, thay thế ảnh cũ
-                    $targetDir = "../../public/user/hinhkm/"; // Đường dẫn thư mục lưu ảnh
+                    $targetDir = "../../public/user/hinhkm/";
                     $hinhanh = basename($file['name']);
                     $targetFilePath = $targetDir . $hinhanh;
-    
-                    // Di chuyển file từ tmp vào thư mục đích
+
                     if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-                        // Xóa ảnh cũ nếu có
                         if ($tintuc['hinhanh']) {
                             $oldFilePath = $targetDir . $tintuc['hinhanh'];
                             if (file_exists($oldFilePath)) {
-                                unlink($oldFilePath);  // Xóa file ảnh cũ
+                                unlink($oldFilePath);
                             }
                         }
                     } else {
                         throw new Exception("Không thể upload hình ảnh.");
                     }
                 }
-    
-                // Cập nhật thông tin tin tức
-                $stmt = $db->conn->prepare("UPDATE tintuckhuyenmai SET tieude = ?, noidung = ?, hinhanh = ? WHERE matintuc = ?");
-                $stmt->bind_param("sssi", $data['tieude'], $data['noidung'], $hinhanh, $matintuc);
+
+                $stmt = $conn->prepare("UPDATE tintuckhuyenmai SET tieude = :tieude, noidung = :noidung, hinhanh = :hinhanh WHERE matintuc = :matintuc");
+                $stmt->bindParam(':tieude', $data['tieude'], PDO::PARAM_STR);
+                $stmt->bindParam(':noidung', $data['noidung'], PDO::PARAM_STR);
+                $stmt->bindParam(':hinhanh', $hinhanh, PDO::PARAM_STR);
+                $stmt->bindParam(':matintuc', $matintuc, PDO::PARAM_INT);
                 $stmt->execute();
-    
-                if ($stmt->affected_rows > 0) {
-                    $result = true; // Thành công
-                } else {
-                    $result = false; // Thất bại hoặc không có thay đổi
-                }
-    
-                $stmt->close();
+
+                $result = $stmt->rowCount() > 0;
             } else {
-                $result = false; // Tin tức không tồn tại
+                $result = false;
             }
         } catch (Exception $e) {
+            error_log("Lỗi khi cập nhật tin tức: " . $e->getMessage());
             $result = false;
-            error_log("Lỗi khi sửa tin tức: " . $e->getMessage());
         }
-    
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
+
+        $db->closeDatabase();
         return $result;
     }
-    
-
 
     // Xóa tin tức khuyến mãi
     public static function xoaTinTuc($matintuc) {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
-    
+        $db->connect();
+        $conn = $db->getConnection();
+
         try {
-            // Lấy thông tin tin tức để lấy tên ảnh (nếu có) trước khi xóa
-            $stmt = $db->conn->prepare("SELECT hinhanh FROM tintuckhuyenmai WHERE matintuc = ?");
-            $stmt->bind_param("i", $matintuc); // "i" cho kiểu INT
+            $stmt = $conn->prepare("SELECT hinhanh FROM tintuckhuyenmai WHERE matintuc = :matintuc");
+            $stmt->bindParam(':matintuc', $matintuc, PDO::PARAM_INT);
             $stmt->execute();
-            $result = $stmt->get_result();
-            $tintuc = $result->fetch_assoc();
-    
+            $tintuc = $stmt->fetch(PDO::FETCH_ASSOC);
+
             if ($tintuc) {
-                // Kiểm tra và xóa ảnh nếu có
-                $hinhanh = $tintuc['hinhanh'];
-                if ($hinhanh) {
+                if ($tintuc['hinhanh']) {
                     $targetDir = "../../public/user/hinhkm/";
-                    $targetFilePath = $targetDir . $hinhanh;
-    
+                    $targetFilePath = $targetDir . $tintuc['hinhanh'];
+
                     if (file_exists($targetFilePath)) {
-                        unlink($targetFilePath); // Xóa file ảnh
+                        unlink($targetFilePath);
                     }
                 }
-    
-                // Thực thi câu lệnh xóa tin tức
-                $stmt = $db->conn->prepare("DELETE FROM tintuckhuyenmai WHERE matintuc = ?");
-                $stmt->bind_param("i", $matintuc); // "i" cho kiểu INT
+
+                $stmt = $conn->prepare("DELETE FROM tintuckhuyenmai WHERE matintuc = :matintuc");
+                $stmt->bindParam(':matintuc', $matintuc, PDO::PARAM_INT);
                 $stmt->execute();
-    
-                if ($stmt->affected_rows > 0) {
-                    $result = true; // Thành công
-                } else {
-                    $result = false; // Thất bại
-                }
-    
-                $stmt->close();
+
+                $result = $stmt->rowCount() > 0;
             } else {
-                $result = false; // Tin tức không tồn tại
+                $result = false;
             }
         } catch (Exception $e) {
-            $result = false;
             error_log("Lỗi khi xóa tin tức: " . $e->getMessage());
+            $result = false;
         }
-    
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
+
+        $db->closeDatabase();
         return $result;
     }
-    
 }
 ?>
