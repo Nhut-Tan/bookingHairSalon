@@ -5,8 +5,7 @@ include('../Model/Login.php'); // Include model
 $model = new Login();
 
 // Kiểm tra nếu đã đăng nhập
-if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
-    $_SESSION['logged_in'] = true;
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     header('Location: ../View/admin/index.php');
     exit;
 }
@@ -15,7 +14,14 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
 if (isset($_POST['submit'])) {
     $username = trim($_POST['username']);
     $pass = trim($_POST['password']);
-    $hashedPass = md5($pass); // Hash mật khẩu
+    $hashedPass = md5($pass); // Hash mật khẩu bằng MD5
+
+    // Kiểm tra nếu thông tin đăng nhập bị thiếu
+    if (empty($username) || empty($pass)) {
+        $_SESSION['error'] = "Vui lòng điền đầy đủ thông tin!";
+        header("Location: ../index.php?controller=admin");
+        exit;
+    }
 
     // Lưu username vào session
     $_SESSION['username'] = $username;
@@ -24,8 +30,9 @@ if (isset($_POST['submit'])) {
     $result = $model->getUser($username);
 
     // Kiểm tra kết quả
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    if ($result) {
+        $row = $result[0]; // Lấy kết quả đầu tiên
+        // Kiểm tra mật khẩu
         if ($hashedPass === $row['matkhau']) {
             // Đăng nhập thành công
             $_SESSION['username'] = $username;
@@ -33,11 +40,13 @@ if (isset($_POST['submit'])) {
             header('Location: ../View/admin/index.php');
             exit;
         } else {
+            // Mật khẩu không đúng
             $_SESSION['error'] = "Bạn Đã Nhập Sai Mật Khẩu !!!";
             header("Location: ../index.php?controller=admin");
-            exit(); 
+            exit();
         }
     } else {
+        // Username không tồn tại
         $_SESSION['error'] = "Username Không Tồn Tại !";
         header("Location: ../index.php?controller=admin");
         exit(); 

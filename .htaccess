@@ -1,0 +1,4 @@
+ RewriteEngine On
+
+    # Chuyển từ /$1/admin thành index.php?controller=admin
+ RewriteRule ^admin$ index.php?controller=admin [L,QSA]

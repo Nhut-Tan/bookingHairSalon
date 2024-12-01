@@ -41,20 +41,26 @@
         </button>
       </div>
       <div class="collapse navbar-collapse" id="navbarNav">
-        <div class="col-sm-8">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <div class="col-sm-7">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="gap: 40px;">
             <li class="nav-item">
-              <a class="nav-link text-light" href="index.php">Trang Chủ</a>
+                <a class="nav-link text-light" href="index.php">
+                    <i class="bi bi-house-door"></i> Trang Chủ
+                </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="#dichvu">Dịch Vụ</a>
+                <a class="nav-link text-light" href="#dichvu">
+                    <i class="bi bi-gear"></i> Dịch Vụ
+                </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-light" href="#khuyenmai">Tin Tức Khuyến Mãi</a>
+                <a class="nav-link text-light" href="#khuyenmai">
+                    <i class="bi bi-tag"></i> Tin Tức Khuyến Mãi
+                </a>
             </li>
-          </ul>
+        </ul>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
          <!-- header.php -->
          <form class="d-flex" method="POST" action="index.php?controller=hienthiformdatlich" onsubmit="return validatePhoneNumber()">
                <input style="border-radius:15px; font-size: 17px; margin-top:6px;" class="form-control me-2" type="text" placeholder="Nhập Số Điện Thoại Để Đặt Lịch" aria-label="nhap so dt" name="sdt" id="sdt" value="<?php echo isset($_POST['sdt']) ? $_POST['sdt'] : ''; ?>">

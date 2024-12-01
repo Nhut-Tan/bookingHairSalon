@@ -6,7 +6,7 @@ $controller = isset($_GET['controller']) ? $_GET['controller'] : '';
 switch ($controller) {
     case 'logout':
         require_once '../../Controller/Logout.php';
-        AuthController::logout();
+        Logout::logout();
         break;
     case 'dscuochen':
         require_once '../../Controller/Booking.php';
@@ -71,7 +71,30 @@ switch ($controller) {
             TintucController::hienThiFormSuaTinTuc();  
         }
         break;
-
+    case 'danhsachdichvu':
+        require_once '../../Controller/DichvuController.php';
+        DichvuController::hienThiDanhSachDichvu();  
+        break;   
+    case 'themDichvu':
+        require_once '../../Controller/DichvuController.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            DichvuController::themDichvu();
+        } else {
+            DichvuController::hienThiFormThemDichvu();  
+        }
+        break;
+    case 'suaDichvu':
+        require_once '../../Controller/DichvuController.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            DichvuController:: suaDichVu();  
+        } else {
+            DichvuController::hienThiFormSuaDichVu();  
+        }
+        break;
+    case 'xoaDichvu':
+        require_once '../../Controller/DichvuController.php';
+        DichvuController::xoaDichVu();  
+        break;
     default:
         // Nếu không có controller hoặc controller không xác định, load trang chủ
         require('pages/home.php');  // Mặc định là hiển thị trang chủ

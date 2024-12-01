@@ -18,8 +18,8 @@
           {
             ?>
                 <tr>
-                    <td><?php echo $arr['mach'];?></td>
-                    <td><?php echo $arr['ten'];?></td>
+                    <td><?php echo '#'.$arr['mach'];?></td>
+                    <td><?php echo $arr['tenkh'];?></td>
                     <td>
                         <?php
                        echo $arr['dichvudat'];

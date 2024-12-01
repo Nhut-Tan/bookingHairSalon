@@ -182,12 +182,10 @@
                             </a>
                         </li>
                         <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
+                            <a href="index.php?controller=danhsachdichvu" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Dịch Vụ
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
                         </li>
@@ -196,8 +194,6 @@
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Cuộc Hẹn
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
                         </li>
@@ -206,8 +202,6 @@
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Tin Tức Khuyến Mãi
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">6</span>
                                 </p>
                             </a>    
                         </li>
@@ -216,8 +210,6 @@
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
                                     Nhân Viên 
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">6</span>
                                 </p>
                             </a>
                         </li>

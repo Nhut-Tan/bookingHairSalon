@@ -3,7 +3,7 @@ require_once '../../Model/Nhanvien.php';
 class nhanvienController {
 
     public static function hienThiFormThemNhanVien() {
-            include '../../View/admin/pages/formthemnhanvien.php';  // Hiển thị form sửa   
+            include '../../View/admin/pages/formthemnhanvien.php';  
     }
     public static function hienThiDanhSachNhanVien() {
         $nhanviens = Nhanvien::layDanhSachNhanVien();

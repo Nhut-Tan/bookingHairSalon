@@ -38,10 +38,10 @@
 <body>
     <div class="container">
         <h1 class="text-center">Đặt Lịch Thành Công!</h1>
-        <p class="text-center">Cảm ơn bạn, <b><?php echo htmlspecialchars($tenkh); ?></b>, đã đặt lịch hẹn với chúng tôi.</p>
-        <p class="text-center"><b>Mã cuộc hẹn:</b> <?php echo htmlspecialchars($mach); ?></p>
+        <p class="text-center">Cảm ơn bạn <b><?php echo htmlspecialchars($tenkh); ?></b> đã đặt lịch hẹn với chúng tôi.</p>
+        <p class="text-center"><b>Vui lòng kiểm tra email để nhận mã cuộc hẹn</b></p>
         <p class="text-center"><b>Ngày giờ bắt đầu:</b> <?php echo htmlspecialchars($giobd); ?></p>
-        <p class="text-center"><b>Ngày giờ kết thúc:</b> <?php echo htmlspecialchars($giokt); ?></p>
+        <p class="text-center"><b>Giờ kết thúc dự kiến:</b> <?php echo htmlspecialchars($giokt); ?></p>
         <div class="text-center">
             <a href="index.php" class="btn btn-custom">Trở về Trang Chủ</a>
         </div>

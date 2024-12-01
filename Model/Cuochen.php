@@ -1,37 +1,46 @@
 <?php
 require_once 'Database.php'; 
+
 class Cuochen {
     // Tạo cuộc hẹn
     public static function taoCuocHen($data) {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
+        $db->connect();
 
-        // Tạo cuộc hẹn trong bảng cuochhen
-        $stmt = $db->conn->prepare("INSERT INTO cuochhen (makh, manv, giobd, giokt) VALUES (?, ?, ?, ?)");
-        if ($stmt === false) {
-            die('Error preparing SQL statement: ' . $db->conn->error);
-        }
+        try {
+            $conn = $db->getConnection();
 
-        // Bind params và execute
-        $stmt->bind_param("iiss", $data['makh'], $data['manv'], $data['giobd'], $data['giokt']);
-        $stmt->execute();
+            // Bắt đầu transaction
+            $conn->beginTransaction();
 
-        // Kiểm tra nếu việc insert thành công
-        if ($stmt->affected_rows > 0) {
-            $mach = $db->conn->insert_id; // Lấy mã cuộc hẹn vừa tạo
+            // Tạo cuộc hẹn trong bảng cuochhen
+            $stmt = $conn->prepare("INSERT INTO cuochhen (makh, manv, giobd, giokt) VALUES (:makh, :manv, :giobd, :giokt)");
+            $stmt->bindParam(':makh', $data['makh']);
+            $stmt->bindParam(':manv', $data['manv']);
+            $stmt->bindParam(':giobd', $data['giobd']);
+            $stmt->bindParam(':giokt', $data['giokt']);
+            $stmt->execute();
+
+            // Lấy mã cuộc hẹn vừa tạo
+            $mach = $conn->lastInsertId();
 
             // Gắn dịch vụ vào cuộc hẹn
+            $stmt = $conn->prepare("INSERT INTO dichvudat (mach, madv) VALUES (:mach, :madv)");
             foreach ($data['dichvu'] as $madv) {
-                $stmt = $db->conn->prepare("INSERT INTO dichvudat (mach, madv) VALUES (?, ?)");
-                $stmt->bind_param("ii", $mach, $madv);
+                $stmt->bindParam(':mach', $mach);
+                $stmt->bindParam(':madv', $madv);
                 $stmt->execute();
             }
 
-            $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
+            // Commit transaction
+            $conn->commit();
+
+            $db->closeDatabase();
             return $mach;
-        } else {
-            // Nếu không có dòng nào được affected
-            echo "Lỗi khi tạo cuộc hẹn!";
+        } catch (Exception $e) {
+            // Rollback transaction nếu có lỗi
+            $conn->rollBack();
+            error_log("Lỗi khi tạo cuộc hẹn: " . $e->getMessage());
             return false;
         }
     }
@@ -39,42 +48,73 @@ class Cuochen {
     // Hủy cuộc hẹn
     public static function huyCuocHen($mach) {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
+        $db->connect();
 
-        // Cập nhật trạng thái hủy cho cuộc hẹn
-        $stmt = $db->conn->prepare("UPDATE cuochhen SET huy = TRUE WHERE mach = ?");
-        $stmt->bind_param("i", $mach);
-        $stmt->execute();
+        try {
+            $conn = $db->getConnection();
 
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
+            // Cập nhật trạng thái hủy cho cuộc hẹn
+            $stmt = $conn->prepare("UPDATE cuochhen SET huy = TRUE WHERE mach = :mach");
+            $stmt->bindParam(':mach', $mach, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $result = $stmt->rowCount() > 0; // Kiểm tra nếu có dòng nào bị ảnh hưởng
+        } catch (Exception $e) {
+            error_log("Lỗi khi hủy cuộc hẹn: " . $e->getMessage());
+            $result = false;
+        }
+
+        $db->closeDatabase();
+        return $result;
     }
 
     // Lấy danh sách cuộc hẹn
     public static function layDanhSachCuocHen() {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
+        $db->connect();
 
-        $stmt = $db->conn->prepare("SELECT * FROM cuochhen");
-        $stmt->execute();
-        $result = $stmt->get_result();
+        try {
+            $conn = $db->getConnection();
 
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
-        return $result->fetch_all(MYSQLI_ASSOC); // Trả về danh sách cuộc hẹn
+            $stmt = $conn->prepare("SELECT * FROM cuochhen");
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // Lấy danh sách cuộc hẹn
+        } catch (Exception $e) {
+            error_log("Lỗi khi lấy danh sách cuộc hẹn: " . $e->getMessage());
+            $result = false;
+        }
+
+        $db->closeDatabase();
+        return $result;
     }
+
+    // Lấy danh sách chi tiết các cuộc hẹn
     public static function layDsCuochen() {
         $db = new Database();
         $db->connect();
-        $stmt=$db->conn->prepare("SELECT c.mach,c.giobd, kh.ten, nv.ten AS tennv, GROUP_CONCAT(dv.tendv SEPARATOR ', ') AS dichvudat
-                                    FROM cuochhen c
-                                    JOIN  khachhang kh ON c.makh = kh.makh
-                                    JOIN  nhanvien nv ON c.manv = nv.manv
-                                    JOIN  dichvudat dvd ON c.mach = dvd.mach
-                                    JOIN  dichvu dv ON dvd.madv = dv.madv
-                                    GROUP BY c.mach, kh.ten, nv.ten");
-        $stmt->execute();
-        $result = $stmt->get_result();
+
+        try {
+            $conn = $db->getConnection();
+
+            $stmt = $conn->prepare("
+                SELECT c.mach, c.giobd, kh.ten AS tenkh, nv.ten AS tennv, 
+                       GROUP_CONCAT(dv.tendv SEPARATOR ', ') AS dichvudat
+                FROM cuochhen c
+                JOIN khachhang kh ON c.makh = kh.makh
+                JOIN nhanvien nv ON c.manv = nv.manv
+                JOIN dichvudat dvd ON c.mach = dvd.mach
+                JOIN dichvu dv ON dvd.madv = dv.madv
+                GROUP BY c.mach, kh.ten, nv.ten
+            ");
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            error_log("Lỗi khi lấy danh sách chi tiết cuộc hẹn: " . $e->getMessage());
+            $result = false;
+        }
+
         $db->closeDatabase();
-        return $result->fetch_all(MYSQLI_ASSOC);
-     }
+        return $result;
+    }
 }
 ?>
