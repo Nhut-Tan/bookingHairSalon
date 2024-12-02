@@ -14,12 +14,12 @@ switch ($controller) {
         break;
     case 'danhsachnhanvien':
         // Gọi controller để lấy danh sách nhân viên
-        require_once '../../Controller/nhanvienController.php';
+        require_once '../../Controller/NhanvienController.php';
         nhanvienController::hienThiDanhSachNhanVien();  // Hiển thị danh sách nhân viên
         break;
 
     case 'themNhanVien':
-        require_once '../../Controller/nhanvienController.php';
+        require_once '../../Controller/NhanvienController.php';
         // Kiểm tra xem có phải là POST request không, nếu có thì xử lý thêm nhân viên
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             nhanvienController::themNhanVien();
@@ -29,12 +29,12 @@ switch ($controller) {
         }
         break;
      case 'xoaNhanVien':
-            require_once '../../Controller/nhanvienController.php';
+            require_once '../../Controller/NhanvienController.php';
             // Xử lý xóa nhân viên
             nhanvienController::xoaNhanVien();  // Gọi hàm xóa nhân viên từ controller
             break;
      case 'suaNhanVien':
-                require_once '../../Controller/nhanvienController.php';
+                require_once '../../Controller/NhanvienController.php';
                 // Xử lý sửa nhân viên
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     nhanvienController::suaNhanVien();  // Gọi hàm sửa nhân viên từ controller

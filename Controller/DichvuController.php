@@ -25,7 +25,7 @@ class DichvuController {
             $result = Dichvu::taoDichvu($data, $file);
             if ($result) {
                 header("Location: index.php?controller=danhsachdichvu");
-                exit;  // Đảm bảo dừng lại sau khi chuyển hướng
+                exit;  
             } else {
                 echo "<p class='text-danger text-center'>Có lỗi xảy ra khi thêm dịch vụ.</p>";
             }

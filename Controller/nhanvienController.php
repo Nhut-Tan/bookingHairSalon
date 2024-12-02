@@ -1,6 +1,6 @@
 <?php
 require_once '../../Model/Nhanvien.php';
-class nhanvienController {
+class NhanvienController {
 
     public static function hienThiFormThemNhanVien() {
             include '../../View/admin/pages/formthemnhanvien.php';  

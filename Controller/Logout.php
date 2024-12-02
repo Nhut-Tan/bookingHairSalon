@@ -4,13 +4,9 @@ class Logout {
     public static function logout() {
         session_unset(); 
         session_destroy();
-
         // Chuyển hướng về trang đăng nhập với tham số controller=admin
         header("Location: ../../index.php?controller=admin");
-        exit(); // Kết thúc script
+        exit();
     }
 }
-
-// Gọi hàm logout
-// AuthController::logout();
 ?>

@@ -25,42 +25,7 @@
     <span class="dot" onclick="currentSlide(5)"></span>
   </div>
   </div> 
-  <!-- <section>
-        <div class="container-fluid p-0 ">
-            <div class="row mb-5">
-                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active" data-bs-interval="3000">
-                        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-1.webp" class="d-block w-100 h-75"  >
-                      </div>
-                      <div class="carousel-item" data-bs-interval="2000">
-                        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-2.webp" class="d-block w-100 h-75">
-                      </div>
-                      <div class="carousel-item" data-bs-interval="2000">
-                        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-3.webp" class="d-block w-100 h-75" >
-                      </div>
-                      <div class="carousel-item" data-bs-interval="2000">
-                        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-4.webp" class="d-block w-100 h-75"  >
-                      </div>
-                      <div class="carousel-item" data-bs-interval="2000">
-                        <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-5.webp" class="d-block w-100 h-75" >
-                      </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                  </div>
-            </div>
-        </div>
-    </section> -->
-
-  <!-- Dấu chấm điều hướng -->
- 
+  
   <?php
 require_once 'Model/Dichvu.php';
 require_once 'Model/tintuckhuyenmai.php';

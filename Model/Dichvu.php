@@ -3,28 +3,27 @@ require_once 'Database.php';
 class Dichvu {
    public static function layDanhSachDichVu() {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
-        $conn = $db->getConnection(); // Lấy đối tượng kết nối PDO
+        $db->connect(); 
+        $conn = $db->getConnection();
 
         $stmt = $conn->prepare("SELECT * FROM dichvu");
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // Lấy tất cả kết quả dưới dạng mảng liên kết
-
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        $db->closeDatabase(); 
         return $result;
     }
 
     public static function layDichVuTheoID($madv) {
         $db = new Database();
-        $db->connect(); // Kết nối đến cơ sở dữ liệu
-        $conn = $db->getConnection(); // Lấy đối tượng kết nối PDO
+        $db->connect(); 
+        $conn = $db->getConnection(); 
 
         $stmt = $conn->prepare("SELECT * FROM dichvu WHERE madv = :madv");
         $stmt->bindParam(':madv', $madv, PDO::PARAM_INT);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC); // Lấy một hàng dữ liệu dưới dạng mảng liên kết
+        $result = $stmt->fetch(PDO::FETCH_ASSOC); 
 
-        $db->closeDatabase(); // Đóng kết nối cơ sở dữ liệu
+        $db->closeDatabase(); 
         return $result;
     }
     public static function layLoaiDichVu() {

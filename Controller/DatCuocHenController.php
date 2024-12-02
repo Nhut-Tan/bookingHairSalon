@@ -11,7 +11,6 @@ class DatCuocHenController {
     private $dichvus;
     private $nhanviens;
 
-    // Constructor để khởi tạo dữ liệu
     public function __construct() {
         // Lấy danh sách dịch vụ và nhân viên từ database
         $this->dichvus = Dichvu::layDanhSachDichVu();
