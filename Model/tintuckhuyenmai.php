@@ -59,10 +59,11 @@ class Tintuckhuyenmai {
                 }
             }
 
-            $stmt = $conn->prepare("INSERT INTO tintuckhuyenmai (tieude, noidung, hinhanh) VALUES (:tieude, :noidung, :hinhanh)");
+            $stmt = $conn->prepare("INSERT INTO tintuckhuyenmai (tieude, noidung, hinhanh, maqt) VALUES (:tieude, :noidung, :hinhanh, :maqt)");
             $stmt->bindParam(':tieude', $data['tieude'], PDO::PARAM_STR);
             $stmt->bindParam(':noidung', $data['noidung'], PDO::PARAM_STR);
             $stmt->bindParam(':hinhanh', $hinh, PDO::PARAM_STR);
+            $stmt->bindParam(':maqt', $data['maqt'], PDO::PARAM_STR);
             $stmt->execute();
 
             $result = $stmt->rowCount() > 0;

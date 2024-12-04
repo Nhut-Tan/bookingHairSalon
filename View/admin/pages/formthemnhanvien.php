@@ -17,6 +17,10 @@
             <label for="hinh">Hình Ảnh</label>
             <input type="file" class="form-control-file" id="hinh" name="hinh" required>
         </div>
+        <div class="form-group">
+            <label for="hinh">Mã Quản Trị Viên</label>
+            <input type="text" class="form-control" id="maqt" name="maqt" required>
+        </div>
         <button type="submit" class="btn btn-primary">Thêm Nhân Viên</button>
         <a href="index.php?controller=danhsachnhanvien" class="btn btn-secondary">Hủy</a>
     </form>

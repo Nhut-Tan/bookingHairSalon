@@ -16,6 +16,7 @@ class NhanvienController {
                 'ten' => $_POST['ten'] ?? '',
                 'sdt' => $_POST['sdt'] ?? '',
                 'email' => $_POST['email'] ?? '',
+                'maqt' => $_POST['maqt'] ?? '',
             ];
             $file = $_FILES['hinh'] ?? null;
 
@@ -25,7 +26,7 @@ class NhanvienController {
                 header("Location: index.php?controller=danhsachnhanvien");
                 exit;  // Đảm bảo dừng lại sau khi chuyển hướng
             } else {
-                echo "<p class='text-danger text-center'>Có lỗi xảy ra khi thêm nhân viên.</p>";
+                echo "<p class='text-danger text-center'>Mã Quản Trị Viên Không Tồn Tại.</p>";
             }
             
         }
