@@ -6,8 +6,6 @@ $controller = isset($_GET['controller']) ? $_GET['controller'] : '';
 if ($controller !== 'admin') {
     require('View/user/header.php');
 }
-
-// Gọi controller phù hợp
 switch ($controller) {
     case 'admin':
         include 'View/admin/pages/login.php';

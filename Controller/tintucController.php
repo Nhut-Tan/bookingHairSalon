@@ -9,7 +9,7 @@ class TintucController {
 
     // Hiển thị danh sách tin tức
     public static function hienThiDanhSachTinTuc() {
-        $tintucs = Tintuckhuyenmai::layDanhSachTinTuc(); // Lấy danh sách tin tức từ Model
+        $tintucs = Tintuckhuyenmai::layDanhSachTinTuc(); 
         include '../../View/admin/pages/danhsachtintuc.php'; // Gọi trang danh sách tin tức
     }
 
@@ -27,11 +27,9 @@ class TintucController {
             $result = Tintuckhuyenmai::taoTinTuc($data, $file);
     
             if ($result) {
-                // Nếu thêm thành công, chuyển hướng về danh sách tin tức
                 header("Location: index.php?controller=danhsachtintuc");
-                exit; // Đảm bảo không thực thi thêm mã nào sau khi chuyển hướng
+                exit; 
             } else {
-                // Hiển thị thông báo lỗi nếu thêm thất bại
                 echo "<p class='text-danger text-center'>Có lỗi xảy ra khi thêm tin tức.</p>";
             }
         }
@@ -42,11 +40,11 @@ class TintucController {
     public static function xoaTinTuc() {
         if (isset($_GET['matintuc'])) {
             $matintuc = $_GET['matintuc'];
-            $result = Tintuckhuyenmai::xoaTinTuc($matintuc); // Gọi hàm xóa từ Model
+            $result = Tintuckhuyenmai::xoaTinTuc($matintuc); 
     
             if ($result) {
                 header("Location: index.php?controller=danhsachtintuc");
-                exit; // Đảm bảo dừng lại sau khi chuyển hướng
+                exit; 
             } else {
                 echo "<p class='text-danger text-center'>Có lỗi xảy ra khi xóa tin tức.</p>";
             }
@@ -76,20 +74,14 @@ class TintucController {
                 'noidung' => $_POST['noidung'] ?? '',
             ];
             $file = $_FILES['hinhanh'] ?? null; // Lấy file hình ảnh từ form nếu có
-    
-            // Gọi phương thức sửa tin tức từ Model
             $result = Tintuckhuyenmai::capNhatTinTuc($matintuc, $data, $file);
-    
             if ($result) {
-                // Nếu thành công, chuyển hướng đến danh sách tin tức
                 header("Location: index.php?controller=danhsachtintuc");
                 exit;
             } else {
-                // Hiển thị thông báo lỗi nếu thất bại
                 echo "<p class='text-danger text-center'>Có lỗi xảy ra khi sửa tin tức.</p>";
             }
         } else {
-            // Hiển thị thông báo nếu mã tin tức không hợp lệ
             echo "<p class='text-danger text-center'>Mã tin tức không hợp lệ.</p>";
         }
     }

@@ -1,5 +1,5 @@
   <!-- Phần Slideshow -->
-  <div class="slideshow-container">
+<div class="slideshow-container">
     <div class="slides">
       <div class="mySlides">
         <img src="Public/user/HinhAnhThuoc/nhung-kieu-toc-cua-hieuthuhai-tang-luc-hut-kho-cuong-cho-ban-1.webp" style="width:100%">
@@ -24,10 +24,8 @@
     <span class="dot" onclick="currentSlide(4)"></span>
     <span class="dot" onclick="currentSlide(5)"></span>
   </div>
-  </div>
-
-  <!-- Dấu chấm điều hướng -->
- 
+  </div> 
+  
   <?php
 require_once 'Model/Dichvu.php';
 require_once 'Model/tintuckhuyenmai.php';

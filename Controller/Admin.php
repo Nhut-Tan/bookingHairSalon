@@ -1,7 +1,7 @@
 <?php
-session_start(); // Khởi tạo session
+session_start(); 
 
-include('../Model/Login.php'); // Include model
+include('../Model/Login.php'); 
 $model = new Login();
 
 // Kiểm tra nếu đã đăng nhập
@@ -14,7 +14,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 if (isset($_POST['submit'])) {
     $username = trim($_POST['username']);
     $pass = trim($_POST['password']);
-    $hashedPass = md5($pass); // Hash mật khẩu bằng MD5
+    $hashedPass = md5($pass); 
 
     // Kiểm tra nếu thông tin đăng nhập bị thiếu
     if (empty($username) || empty($pass)) {

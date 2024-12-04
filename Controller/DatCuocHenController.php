@@ -5,13 +5,12 @@ require_once 'Model/Nhanvien.php';
 require_once 'Model/Khachhang.php';
 require_once 'Model/Cuochen.php';
 require_once 'Model/Dichvudat.php';
-
+require_once 'mail/sendmail.php';
 class DatCuocHenController {
 
     private $dichvus;
     private $nhanviens;
 
-    // Constructor để khởi tạo dữ liệu
     public function __construct() {
         // Lấy danh sách dịch vụ và nhân viên từ database
         $this->dichvus = Dichvu::layDanhSachDichVu();
@@ -77,6 +76,11 @@ class DatCuocHenController {
 
             // Thông báo thành công
             include 'View/user/datlichthanhcong.php';
+            //Gửi email
+            $mail=new Mailer();
+            $tieude='Cảm ơn quý khách đã đặt lịch hẹn tại IRONCAP ';
+            $noidung="Mã cuộc hẹn của quý khách là: $mach";
+            $mail->datlich($tieude,$noidung,$emailkh);
             exit;
         }
     }

@@ -23,11 +23,11 @@ if (isset($_SESSION['error'])) {
             <h5 class="card-title text-center fs-3">Admin</h5>
             <form action="Controller/Admin.php" method="post">
               <div class="form-floating mb-3">
-                <input type="text" name="username" class="form-control" placeholder="username@example.com" required>
+                <input type="text" name="username" class="form-control" placeholder="username@example.com" >
                 <label for="floatingInput">Username</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                <input type="password" name="password" class="form-control" placeholder="Password" >
                 <label for="floatingPassword">Password</label>
               </div>
               <div class="d-grid">

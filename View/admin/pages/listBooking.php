@@ -18,7 +18,7 @@
           {
             ?>
                 <tr>
-                    <td><?php echo $arr['mach'];?></td>
+                    <td><?php echo '#'.$arr['mach'];?></td>
                     <td><?php echo $arr['tenkh'];?></td>
                     <td>
                         <?php

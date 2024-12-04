@@ -6,7 +6,7 @@ $controller = isset($_GET['controller']) ? $_GET['controller'] : '';
 switch ($controller) {
     case 'logout':
         require_once '../../Controller/Logout.php';
-        AuthController::logout();
+        Logout::logout();
         break;
     case 'dscuochen':
         require_once '../../Controller/Booking.php';
@@ -14,12 +14,12 @@ switch ($controller) {
         break;
     case 'danhsachnhanvien':
         // Gọi controller để lấy danh sách nhân viên
-        require_once '../../Controller/nhanvienController.php';
+        require_once '../../Controller/NhanvienController.php';
         nhanvienController::hienThiDanhSachNhanVien();  // Hiển thị danh sách nhân viên
         break;
 
     case 'themNhanVien':
-        require_once '../../Controller/nhanvienController.php';
+        require_once '../../Controller/NhanvienController.php';
         // Kiểm tra xem có phải là POST request không, nếu có thì xử lý thêm nhân viên
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             nhanvienController::themNhanVien();
@@ -29,12 +29,12 @@ switch ($controller) {
         }
         break;
      case 'xoaNhanVien':
-            require_once '../../Controller/nhanvienController.php';
+            require_once '../../Controller/NhanvienController.php';
             // Xử lý xóa nhân viên
             nhanvienController::xoaNhanVien();  // Gọi hàm xóa nhân viên từ controller
             break;
      case 'suaNhanVien':
-                require_once '../../Controller/nhanvienController.php';
+                require_once '../../Controller/NhanvienController.php';
                 // Xử lý sửa nhân viên
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     nhanvienController::suaNhanVien();  // Gọi hàm sửa nhân viên từ controller
@@ -71,7 +71,30 @@ switch ($controller) {
             TintucController::hienThiFormSuaTinTuc();  
         }
         break;
-
+    case 'danhsachdichvu':
+        require_once '../../Controller/DichvuController.php';
+        DichvuController::hienThiDanhSachDichvu();  
+        break;   
+    case 'themDichvu':
+        require_once '../../Controller/DichvuController.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            DichvuController::themDichvu();
+        } else {
+            DichvuController::hienThiFormThemDichvu();  
+        }
+        break;
+    case 'suaDichvu':
+        require_once '../../Controller/DichvuController.php';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            DichvuController:: suaDichVu();  
+        } else {
+            DichvuController::hienThiFormSuaDichVu();  
+        }
+        break;
+    case 'xoaDichvu':
+        require_once '../../Controller/DichvuController.php';
+        DichvuController::xoaDichVu();  
+        break;
     default:
         // Nếu không có controller hoặc controller không xác định, load trang chủ
         require('pages/home.php');  // Mặc định là hiển thị trang chủ
