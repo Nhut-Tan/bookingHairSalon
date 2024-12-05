@@ -24,12 +24,12 @@ class Nhanvien {
             }
 
             // Thêm nhân viên vào cơ sở dữ liệu
-            $stmt = $conn->prepare("INSERT INTO nhanvien (ten, sdt, email, hinh, maqt) VALUES (:ten, :sdt, :email, :hinh, :maqt)");
+            $stmt = $conn->prepare("INSERT INTO nhanvien (ten, sdt, email, hinh) VALUES (:ten, :sdt, :email, :hinh)");
             $stmt->bindParam(':ten', $data['ten']);
             $stmt->bindParam(':sdt', $data['sdt']);
             $stmt->bindParam(':email', $data['email']);
             $stmt->bindParam(':hinh', $hinh);
-            $stmt->bindParam(':maqt', $data['maqt']);
+    
 
             $stmt->execute();
             $result = $stmt->rowCount() > 0; // Kiểm tra có thêm thành công không

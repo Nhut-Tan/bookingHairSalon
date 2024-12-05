@@ -20,11 +20,6 @@
             <label for="noidung" class="form-label">Nội Dung</label>
             <textarea class="form-control" id="noidung" name="noidung" rows="6" required></textarea>
         </div>
-        <div class="mb-3">
-            <label for="maquantri" class="form-label">Mã Quản Trị Viên</label>
-            <input type="text" class="form-control" id="maqt" name="maqt" required>
-        </div>
-
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-success">Thêm Tin Tức</button>
             <a href="index.php?controller=danhsachtintuc" class="btn btn-secondary ms-3">Hủy</a>

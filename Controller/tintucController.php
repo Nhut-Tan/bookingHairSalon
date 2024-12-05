@@ -20,7 +20,7 @@ class TintucController {
             $data = [
                 'tieude' => $_POST['tieude'] ?? '',
                 'noidung' => $_POST['noidung'] ?? '',
-                'maqt' => $_POST['maqt'] ?? '',
+
             ];
             $file = $_FILES['hinhanh'] ?? null;
     
@@ -31,7 +31,7 @@ class TintucController {
                 header("Location: index.php?controller=danhsachtintuc");
                 exit; 
             } else {
-                echo "<p class='text-danger text-center'>Mã Quản Trị Viên Không Tồn Tại </p></p>";
+                echo "<p class='text-danger text-center'>Loi </p></p>";
             }
         }
     }
